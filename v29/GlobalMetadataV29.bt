@@ -1,0 +1,725 @@
+//------------------------------------------------
+//--- 010 Editor v14.0.1 Binary Template
+//
+//      File: GlobalMetadataV29.bt
+//   Authors: akio7624
+//   Version: v29.1.0
+//   Purpose: template for Unity metadata v29(0x1D)
+//  Category: Game
+// File Mask: global-metadata.dat
+//  ID Bytes: AF 1B B1 FA
+//   History: 
+//   29.1.0   2025-02-15 Initial release
+//------------------------------------------------
+// 
+// This template was created based on the IL2CPP source code found in Unity 2021.3.32f1.
+// 
+// IL2CPP source code can be viewed at https://github.com/akio7624/il2cpp-2021.3.32f1
+// 
+// If you'd like to share additional information, please send an email to akio7624@proton.me
+// https://github.com/akio7624/global-metadata-template
+
+LittleEndian();  // use little endian
+
+
+// ========== HEADER ==========
+typedef struct _Il2CppGlobalMetadataHeader
+{
+    int32 sanity <format=hex>;
+    int32 version;
+    int32 stringLiteralOffset <format=hex>; // string data for managed code
+    int32 stringLiteralSize;
+    int32 stringLiteralDataOffset <format=hex>;
+    int32 stringLiteralDataSize;
+    int32 stringOffset <format=hex>; // string data for metadata
+    int32 stringSize;
+    int32 eventsOffset <format=hex>; // Il2CppEventDefinition
+    int32 eventsSize;
+    int32 propertiesOffset <format=hex>; // Il2CppPropertyDefinition
+    int32 propertiesSize;
+    int32 methodsOffset <format=hex>; // Il2CppMethodDefinition
+    int32 methodsSize;
+    int32 parameterDefaultValuesOffset <format=hex>; // Il2CppParameterDefaultValue
+    int32 parameterDefaultValuesSize;
+    int32 fieldDefaultValuesOffset <format=hex>; // Il2CppFieldDefaultValue
+    int32 fieldDefaultValuesSize;
+    int32 fieldAndParameterDefaultValueDataOffset <format=hex>; // uint8
+    int32 fieldAndParameterDefaultValueDataSize;
+    int32 fieldMarshaledSizesOffset <format=hex>; // Il2CppFieldMarshaledSize
+    int32 fieldMarshaledSizesSize;
+    int32 parametersOffset <format=hex>; // Il2CppParameterDefinition
+    int32 parametersSize;
+    int32 fieldsOffset <format=hex>; // Il2CppFieldDefinition
+    int32 fieldsSize;
+    int32 genericParametersOffset <format=hex>; // Il2CppGenericParameter
+    int32 genericParametersSize;
+    int32 genericParameterConstraintsOffset <format=hex>; // TypeIndex
+    int32 genericParameterConstraintsSize;
+    int32 genericContainersOffset <format=hex>; // Il2CppGenericContainer
+    int32 genericContainersSize;
+    int32 nestedTypesOffset <format=hex>; // TypeDefinitionIndex
+    int32 nestedTypesSize;
+    int32 interfacesOffset <format=hex>; // TypeIndex
+    int32 interfacesSize;
+    int32 vtableMethodsOffset <format=hex>; // EncodedMethodIndex
+    int32 vtableMethodsSize;
+    int32 interfaceOffsetsOffset <format=hex>; // Il2CppInterfaceOffsetPair
+    int32 interfaceOffsetsSize;
+    int32 typeDefinitionsOffset <format=hex>; // Il2CppTypeDefinition
+    int32 typeDefinitionsSize;
+    int32 imagesOffset <format=hex>; // Il2CppImageDefinition
+    int32 imagesSize;
+    int32 assembliesOffset <format=hex>; // Il2CppAssemblyDefinition
+    int32 assembliesSize;
+    int32 fieldRefsOffset <format=hex>; // Il2CppFieldRef
+    int32 fieldRefsSize;
+    int32 referencedAssembliesOffset <format=hex>; // int32
+    int32 referencedAssembliesSize;
+    int32 attributeDataOffset <format=hex>;
+    int32 attributeDataSize;
+    int32 attributeDataRangeOffset <format=hex>;
+    int32 attributeDataRangeSize;
+    int32 unresolvedVirtualCallParameterTypesOffset <format=hex>; // TypeIndex
+    int32 unresolvedVirtualCallParameterTypesSize;
+    int32 unresolvedVirtualCallParameterRangesOffset <format=hex>; // Il2CppMetadataRange
+    int32 unresolvedVirtualCallParameterRangesSize;
+    int32 windowsRuntimeTypeNamesOffset <format=hex>; // Il2CppWindowsRuntimeTypeNamePair
+    int32 windowsRuntimeTypeNamesSize;
+    int32 windowsRuntimeStringsOffset <format=hex>; // const char*
+    int32 windowsRuntimeStringsSize;
+    int32 exportedTypeDefinitionsOffset <format=hex>; // TypeDefinitionIndex
+    int32 exportedTypeDefinitionsSize;
+} _Il2CppGlobalMetadataHeader;
+
+_Il2CppGlobalMetadataHeader Il2CppGlobalMetadataHeader;
+// ===================================
+
+
+// ========== stringLiteral ==========
+typedef int32 StringLiteralIndex;
+
+typedef struct Il2CppStringLiteral
+{
+    uint32 length;
+    StringLiteralIndex dataIndex;  // index for stringLiteralData
+} Il2CppStringLiteral;
+
+FSeek(Il2CppGlobalMetadataHeader.stringLiteralOffset);
+struct StringLiteral_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.stringLiteralSize; i+=sizeof(Il2CppStringLiteral)){
+        Il2CppStringLiteral stringLiteral;
+    }
+} stringLiteral_list;
+// ===================================
+
+
+// ========== stringLiteralData ==========
+FSeek(Il2CppGlobalMetadataHeader.stringLiteralDataOffset);
+struct StringLiteralData_list  // Wrapper for clean display
+{
+    local int i = 0, dataIndex = 0, length = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.stringLiteralSize/8; i++){
+        dataIndex = stringLiteral_list.stringLiteral[i].dataIndex;
+        length = stringLiteral_list.stringLiteral[i].length;
+        struct StringLiteralData{  // use a structure wrapper because the template does not support duplicated arrays
+            char data[length] <format=hex>;
+        } stringLiteralData;
+    }
+} stringLiteralData_list;
+// ===================================
+
+
+// ========== string ==========
+FSeek(Il2CppGlobalMetadataHeader.stringOffset);
+struct _str {
+    string content;
+};
+
+struct String_list  // Wrapper for clean display
+{
+    while(FTell() < Il2CppGlobalMetadataHeader.eventsOffset){
+        _str _string <read=content>;  // set content of Value column to string data
+    }
+} string_list;
+// ===================================
+
+
+// ========== events ==========
+typedef int32 StringIndex;
+typedef int32 TypeIndex;
+typedef int32 MethodIndex;
+
+typedef struct Il2CppEventDefinition
+{
+    StringIndex nameIndex;
+    TypeIndex typeIndex;
+    MethodIndex add;
+    MethodIndex remove;
+    MethodIndex raise;
+    uint32 token <format=hex>;
+} Il2CppEventDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.eventsOffset);
+struct Event_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.eventsSize; i+=sizeof(Il2CppEventDefinition)){
+        Il2CppEventDefinition event;
+    }
+} event_list <size=Il2CppGlobalMetadataHeader.eventsSize>;
+// ===================================
+
+
+// ========== properties ==========
+typedef struct Il2CppPropertyDefinition
+{
+    StringIndex nameIndex;
+    MethodIndex get;
+    MethodIndex set;
+    uint32 attrs;
+    uint32 token <format=hex>;
+} Il2CppPropertyDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.propertiesOffset);
+struct Property_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.propertiesSize; i+=sizeof(Il2CppPropertyDefinition)){
+        Il2CppPropertyDefinition property;
+    }
+} property_list <size=Il2CppGlobalMetadataHeader.propertiesSize>;
+// ===================================
+
+
+// ========== methods ==========
+typedef int32 TypeDefinitionIndex;
+typedef int32 ParameterIndex;
+typedef int32 GenericContainerIndex;
+
+typedef struct Il2CppMethodDefinition
+{
+    StringIndex nameIndex;
+    TypeDefinitionIndex declaringType;
+    TypeIndex returnType;
+    ParameterIndex parameterStart;
+    GenericContainerIndex genericContainerIndex;
+    uint32 token <format=hex>;
+    uint16 flags;
+    uint16 iflags;
+    uint16 slot;
+    uint16 parameterCount;
+} Il2CppMethodDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.methodsOffset);
+struct Method_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.methodsSize; i+=sizeof(Il2CppMethodDefinition)){
+        Il2CppMethodDefinition method;
+    }
+} method_list <size=Il2CppGlobalMetadataHeader.methodsSize>;
+// ===================================
+
+
+// ========== parameterDefaultValues ==========
+typedef int32 DefaultValueDataIndex;
+
+typedef struct Il2CppParameterDefaultValue
+{
+    ParameterIndex parameterIndex;
+    TypeIndex typeIndex;
+    DefaultValueDataIndex dataIndex;
+} Il2CppParameterDefaultValue;
+
+FSeek(Il2CppGlobalMetadataHeader.parameterDefaultValuesOffset);
+struct ParameterDefaultValue_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.parameterDefaultValuesSize; i+=sizeof(Il2CppMethodDefinition)){
+        Il2CppParameterDefaultValue parameterDefaultValue;
+    }
+} parameterDefaultValue_list <size=Il2CppGlobalMetadataHeader.parameterDefaultValuesSize>;
+// ===================================
+
+
+// ========== fieldDefaultValues ==========
+typedef int32 FieldIndex;
+
+typedef struct Il2CppFieldDefaultValue
+{
+    FieldIndex fieldIndex;
+    TypeIndex typeIndex;
+    DefaultValueDataIndex dataIndex;
+} Il2CppFieldDefaultValue;
+
+FSeek(Il2CppGlobalMetadataHeader.fieldDefaultValuesOffset);
+struct FieldDefaultValue_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.fieldDefaultValuesSize; i+=sizeof(Il2CppFieldDefaultValue)){
+        Il2CppFieldDefaultValue fieldDefaultValue;
+    }
+} fieldDefaultValue_list <size=Il2CppGlobalMetadataHeader.fieldDefaultValuesSize>;
+// ===================================
+
+
+// ========== fieldAndParameterDefaultValueData ==========
+FSeek(Il2CppGlobalMetadataHeader.fieldAndParameterDefaultValueDataOffset);
+struct FieldAndParameterDefaultValueData_list  // Wrapper for clean display
+{
+    while(FTell() < Il2CppGlobalMetadataHeader.fieldMarshaledSizesOffset){
+        unsigned char fieldAndParameterDefaultValueData;  // real type is uint8_t
+    }
+} fieldAndParameterDefaultValueData_list;
+// ===================================
+
+
+// ========== fieldMarshaledSizes ==========
+typedef struct Il2CppFieldMarshaledSize
+{
+    FieldIndex fieldIndex;
+    TypeIndex typeIndex;
+    int32 size;
+} Il2CppFieldMarshaledSize;
+
+FSeek(Il2CppGlobalMetadataHeader.fieldMarshaledSizesOffset);
+struct FieldMarshaledSize_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.fieldMarshaledSizesSize; i+=sizeof(Il2CppFieldMarshaledSize)){
+        Il2CppFieldMarshaledSize fieldMarshaledSize;
+    }
+} fieldMarshaledSize_list <size=Il2CppGlobalMetadataHeader.fieldMarshaledSizesSize>;
+// ===================================
+
+
+// ========== parameters ==========
+typedef struct Il2CppParameterDefinition
+{
+    StringIndex nameIndex;
+    uint32 token <format=hex>;
+    TypeIndex typeIndex;
+} Il2CppParameterDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.parametersOffset);
+struct Parameter_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.parametersSize; i+=sizeof(Il2CppParameterDefinition)){
+        Il2CppParameterDefinition parameter;
+    }
+} parameter_list <size=Il2CppGlobalMetadataHeader.parametersSize>;
+// ===================================
+
+
+// ========== fields ==========
+typedef struct Il2CppFieldDefinition
+{
+    StringIndex nameIndex;
+    TypeIndex typeIndex;
+    uint32 token <format=hex>;
+} Il2CppFieldDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.fieldsOffset);
+struct Field_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.fieldsSize; i+=sizeof(Il2CppFieldDefinition)){
+        Il2CppFieldDefinition field;
+    }
+} field_list <size=Il2CppGlobalMetadataHeader.fieldsSize>;
+// ===================================
+
+
+// ========== genericParameters ==========
+typedef int32 GenericContainerIndex;
+typedef int16 GenericParameterConstraintIndex;
+
+typedef struct Il2CppGenericParameter
+{
+    GenericContainerIndex ownerIndex;  /* Type or method this parameter was defined in. */
+    StringIndex nameIndex;
+    GenericParameterConstraintIndex constraintsStart;
+    int16 constraintsCount;
+    uint16 num;
+    uint16 flags;
+} Il2CppGenericParameter;
+
+FSeek(Il2CppGlobalMetadataHeader.genericParametersOffset);
+struct GenericParameter_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.genericParametersSize; i+=sizeof(Il2CppGenericParameter)){
+        Il2CppGenericParameter genericParameter;
+    }
+} genericParameter_list <size=Il2CppGlobalMetadataHeader.genericParametersSize>;
+// ===================================
+
+
+// ========== genericParameterConstraints ==========
+FSeek(Il2CppGlobalMetadataHeader.genericParameterConstraintsOffset);
+struct GenericParameterConstraint_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.genericParameterConstraintsSize; i+=sizeof(TypeIndex)){
+        TypeIndex genericParameterConstraint;
+    }
+} genericParameterConstraint_list <size=Il2CppGlobalMetadataHeader.genericParameterConstraintsSize>;
+// ===================================
+
+
+// ========== genericContainers ==========
+typedef int32 GenericParameterIndex;
+
+typedef struct Il2CppGenericContainer
+{
+    /* index of the generic type definition or the generic method definition corresponding to this container */
+    int32 ownerIndex; // either index into Il2CppClass metadata array or Il2CppMethodDefinition array
+    int32 type_argc;
+    /* If true, we're a generic method, otherwise a generic type definition. */
+    int32 is_method;
+    /* Our type parameters. */
+    GenericParameterIndex genericParameterStart;
+} Il2CppGenericContainer;
+
+FSeek(Il2CppGlobalMetadataHeader.genericContainersOffset);
+struct GenericContainer_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.genericContainersSize; i+=sizeof(Il2CppGenericContainer)){
+        Il2CppGenericContainer genericContainer;
+    }
+} genericContainer_list <size=Il2CppGlobalMetadataHeader.genericContainersSize>;
+// ===================================
+
+
+// ========== nestedTypes ==========
+FSeek(Il2CppGlobalMetadataHeader.nestedTypesOffset);
+struct NestedType_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.nestedTypesSize; i+=sizeof(TypeDefinitionIndex)){
+        TypeDefinitionIndex nestedType;
+    }
+} nestedType_list <size=Il2CppGlobalMetadataHeader.nestedTypesSize>;
+// ===================================
+
+
+// ========== interfaces ==========
+FSeek(Il2CppGlobalMetadataHeader.interfacesOffset);
+struct Interface_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.interfacesSize; i+=sizeof(TypeIndex)){
+        TypeIndex interface;
+    }
+} interface_list <size=Il2CppGlobalMetadataHeader.interfacesSize>;
+// ===================================
+
+
+// ========== vtableMethods ==========
+typedef uint32 EncodedMethodIndex;
+
+FSeek(Il2CppGlobalMetadataHeader.vtableMethodsOffset);
+struct VtableMethod_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.vtableMethodsSize; i+=sizeof(EncodedMethodIndex)){
+        EncodedMethodIndex vtableMethod;
+    }
+} vtableMethod_list <size=Il2CppGlobalMetadataHeader.vtableMethodsSize>;
+// ===================================
+
+
+// ========== interfaceOffsets ==========
+typedef struct Il2CppInterfaceOffsetPair
+{
+    TypeIndex interfaceTypeIndex;
+    int32 offset;
+} Il2CppInterfaceOffsetPair;
+
+FSeek(Il2CppGlobalMetadataHeader.interfaceOffsetsOffset);
+struct InterfaceOffset_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.interfaceOffsetsSize; i+=sizeof(Il2CppInterfaceOffsetPair)){
+        Il2CppInterfaceOffsetPair interfaceOffset;
+    }
+} interfaceOffset_list <size=Il2CppGlobalMetadataHeader.interfaceOffsetsSize>;
+// ===================================
+
+
+// ========== typeDefinitions ==========
+typedef int32 EventIndex;
+typedef int32 PropertyIndex;
+typedef int32 NestedTypeIndex;
+typedef int32 InterfacesIndex;
+typedef int32 VTableIndex;
+
+typedef struct Il2CppTypeDefinition
+{
+    StringIndex nameIndex;
+    StringIndex namespaceIndex;
+    TypeIndex byvalTypeIndex;
+
+    TypeIndex declaringTypeIndex;
+    TypeIndex parentIndex;
+    TypeIndex elementTypeIndex; // we can probably remove this one. Only used for enums
+
+    GenericContainerIndex genericContainerIndex;
+
+    uint32 flags;
+
+    FieldIndex fieldStart;
+    MethodIndex methodStart;
+    EventIndex eventStart;
+    PropertyIndex propertyStart;
+    NestedTypeIndex nestedTypesStart;
+    InterfacesIndex interfacesStart;
+    VTableIndex vtableStart;
+    InterfacesIndex interfaceOffsetsStart;
+
+    uint16 method_count;
+    uint16 property_count;
+    uint16 field_count;
+    uint16 event_count;
+    uint16 nested_type_count;
+    uint16 vtable_count;
+    uint16 interfaces_count;
+    uint16 interface_offsets_count;
+
+    // bitfield to portably encode boolean values as single bits
+    // 01 - valuetype;
+    // 02 - enumtype;
+    // 03 - has_finalize;
+    // 04 - has_cctor;
+    // 05 - is_blittable;
+    // 06 - is_import_or_windows_runtime;
+    // 07-10 - One of nine possible PackingSize values (0, 1, 2, 4, 8, 16, 32, 64, or 128)
+    // 11 - PackingSize is default
+    // 12 - ClassSize is default
+    // 13-16 - One of nine possible PackingSize values (0, 1, 2, 4, 8, 16, 32, 64, or 128) - the specified packing size (even for explicit layouts)
+    uint32 bitfield;
+    uint32 token <format=hex>;
+} Il2CppTypeDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.typeDefinitionsOffset);
+struct TypeDefinition_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.typeDefinitionsSize; i+=sizeof(Il2CppTypeDefinition)){
+        Il2CppTypeDefinition typeDefinition;
+    }
+} typeDefinition_list <size=Il2CppGlobalMetadataHeader.typeDefinitionsSize>;
+// ===================================
+
+
+// ========== images ==========
+typedef int32 AssemblyIndex;
+typedef int32 CustomAttributeIndex;
+
+typedef struct Il2CppImageDefinition
+{
+    StringIndex nameIndex;
+    AssemblyIndex assemblyIndex;
+
+    TypeDefinitionIndex typeStart;
+    uint32 typeCount;
+
+    TypeDefinitionIndex exportedTypeStart;
+    uint32 exportedTypeCount;
+
+    MethodIndex entryPointIndex;
+    uint32 token <format=hex>;
+
+    CustomAttributeIndex customAttributeStart;
+    uint32 customAttributeCount;
+} Il2CppImageDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.imagesOffset);
+struct Image_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.imagesSize; i+=sizeof(Il2CppImageDefinition)){
+        Il2CppImageDefinition image <read=(ReadString(Il2CppGlobalMetadataHeader.stringOffset + this.nameIndex))>;
+    }
+} image_list <size=Il2CppGlobalMetadataHeader.imagesSize>;
+// ===================================
+
+
+// ========== assemblies ==========
+typedef int32 ImageIndex;
+#define PUBLIC_KEY_BYTE_LENGTH 8
+
+typedef struct Il2CppAssemblyNameDefinition
+{
+    StringIndex nameIndex;
+    StringIndex cultureIndex;
+    StringIndex publicKeyIndex;
+    uint32 hash_alg;
+    int32 hash_len;
+    uint32 flags;
+    int32 major;
+    int32 minor;
+    int32 build;
+    int32 revision;
+    unsigned char public_key_token[PUBLIC_KEY_BYTE_LENGTH]; // real type is uint8_t, 
+} Il2CppAssemblyNameDefinition;
+
+typedef struct Il2CppAssemblyDefinition
+{
+    ImageIndex imageIndex;
+    uint32 token <format=hex>;
+    int32 referencedAssemblyStart;
+    int32 referencedAssemblyCount;
+    Il2CppAssemblyNameDefinition aname;
+} Il2CppAssemblyDefinition;
+
+FSeek(Il2CppGlobalMetadataHeader.assembliesOffset);
+struct Assembly_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.assembliesSize; i+=sizeof(Il2CppAssemblyDefinition)){
+        Il2CppAssemblyDefinition assembly;
+    }
+} assembly_list <size=Il2CppGlobalMetadataHeader.assembliesSize>;
+// ===================================
+
+
+// ========== fieldRefs ==========
+typedef struct Il2CppFieldRef
+{
+    TypeIndex typeIndex;
+    FieldIndex fieldIndex; // local offset into type fields
+} Il2CppFieldRef;
+
+FSeek(Il2CppGlobalMetadataHeader.fieldRefsOffset);
+struct FieldRef_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.fieldRefsSize; i+=sizeof(Il2CppFieldRef)){
+        Il2CppFieldRef fieldRef;
+    }
+} fieldRef_list <size=Il2CppGlobalMetadataHeader.fieldRefsSize>;
+// ===================================
+
+
+// ========== referencedAssemblies ==========
+FSeek(Il2CppGlobalMetadataHeader.referencedAssembliesOffset);
+struct ReferencedAssembly_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.referencedAssembliesSize; i+=sizeof(int32)){
+        int32 referencedAssembly;
+    }
+} referencedAssembly_list <size=Il2CppGlobalMetadataHeader.referencedAssembliesSize>;
+// ===================================
+
+
+// ========== attributeDatas ==========
+FSeek(Il2CppGlobalMetadataHeader.attributeDataOffset);
+struct AttributeData_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.attributeDataSize; i+=sizeof(unsigned char)){
+        unsigned char attributeData;  // real type is maybe uint8_t
+    }
+} attributeData_list <size=Il2CppGlobalMetadataHeader.attributeDataSize>;
+// ===================================
+
+
+// ========== attributeDataRanges ==========
+typedef struct Il2CppCustomAttributeDataRange
+{
+    uint32 token <format=hex>;
+    uint32 startOffset;
+} Il2CppCustomAttributeDataRange;
+
+FSeek(Il2CppGlobalMetadataHeader.attributeDataRangeOffset);
+struct AttributeDataRange_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.attributeDataRangeSize; i+=sizeof(Il2CppCustomAttributeDataRange)){
+        Il2CppCustomAttributeDataRange attributeDataRange;
+    }
+} attributeDataRange_list <size=Il2CppGlobalMetadataHeader.attributeDataRangeSize>;
+// ===================================
+
+
+// ========== unresolvedVirtualCallParameterTypes ==========
+FSeek(Il2CppGlobalMetadataHeader.unresolvedVirtualCallParameterTypesOffset);
+struct UnresolvedVirtualCallParameterType_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.unresolvedVirtualCallParameterTypesSize; i+=sizeof(TypeIndex)){
+        TypeIndex unresolvedVirtualCallParameterType;
+    }
+} unresolvedVirtualCallParameterType_list <size=Il2CppGlobalMetadataHeader.unresolvedVirtualCallParameterTypesSize>;
+// ===================================
+
+
+// ========== unresolvedVirtualCallParameterRanges ==========
+typedef struct Il2CppMetadataRange
+{
+    int32 start;
+    int32 length;
+} Il2CppMetadataRange;
+
+FSeek(Il2CppGlobalMetadataHeader.unresolvedVirtualCallParameterRangesOffset);
+struct UnresolvedVirtualCallParameterRange_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.unresolvedVirtualCallParameterRangesSize; i+=sizeof(Il2CppMetadataRange)){
+        Il2CppMetadataRange unresolvedVirtualCallParameterRange;
+    }
+} unresolvedVirtualCallParameterRange_list <size=Il2CppGlobalMetadataHeader.unresolvedVirtualCallParameterRangesSize>;
+// ===================================
+
+
+// ========== windowsRuntimeTypeNames ========== -- Warning: not tested!
+typedef struct Il2CppWindowsRuntimeTypeNamePair
+{
+    StringIndex nameIndex;
+    TypeIndex typeIndex;
+} Il2CppWindowsRuntimeTypeNamePair;
+
+FSeek(Il2CppGlobalMetadataHeader.windowsRuntimeTypeNamesOffset);
+struct WindowsRuntimeTypeName_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.windowsRuntimeTypeNamesSize; i+=sizeof(Il2CppWindowsRuntimeTypeNamePair)){
+        Il2CppWindowsRuntimeTypeNamePair windowsRuntimeTypeName;
+    }
+} windowsRuntimeTypeName_list <size=Il2CppGlobalMetadataHeader.windowsRuntimeTypeNamesSize>;
+// ===================================
+
+
+// ========== windowsRuntimeStrings ========== -- Warning: not tested!
+FSeek(Il2CppGlobalMetadataHeader.windowsRuntimeStringsOffset);
+struct _windowsRuntimeString {
+    string content;
+};
+
+struct WindowsRuntimeString_list  // Wrapper for clean display
+{
+    while(FTell() < Il2CppGlobalMetadataHeader.eventsOffset){
+        _windowsRuntimeString windowsRuntimeString <read=content>;  // set content of Value column to string data
+    }
+} windowsRuntimeString_list;
+// ===================================
+
+
+// ========== exportedTypeDefinitions ==========
+FSeek(Il2CppGlobalMetadataHeader.exportedTypeDefinitionsOffset);
+struct ExportedTypeDefinition_list  // Wrapper for clean display
+{
+    local int i = 0;
+    for(i = 0; i<Il2CppGlobalMetadataHeader.exportedTypeDefinitionsSize; i+=sizeof(TypeDefinitionIndex)){
+        TypeDefinitionIndex exportedTypeDefinition;
+    }
+} exportedTypeDefinition_list <size=Il2CppGlobalMetadataHeader.exportedTypeDefinitionsSize>;
+// ===================================
+
+Printf("Load Completed!");
